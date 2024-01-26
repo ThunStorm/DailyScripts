@@ -61,9 +61,7 @@ def get_article(page_source):
                 'visibility: visible;' in tag.get('style') or 'font-size' in tag.get('style')))
     article = "".join([text.text.replace('\u200d', ' ').strip() for text in article_text]).strip()
     # print(f'标题：{title}\n发布时间：{publish_time}\n正文：{article}\n')
-    with open("article.txt", "w", encoding='utf-8') as f:
-        f.write(article)
-    return f'标题：{title}\n发布时间：{publish_time}\n正文：{article}\n'
+    return f'标题：{title}\n发布时间：{publish_time}\n正文：{article}\n\n\n\n'
 
 
 def get_article_text(url):
@@ -83,4 +81,7 @@ link_texts = articles_link_finder(url)
 # # 打印提取到的链接文本
 print(len(link_texts))
 # print(link_texts[0])
-print(get_article_text(link_texts[0]))
+for _ in range(len(link_texts)):
+    with open("articles.txt", "a", encoding='utf-8') as f:
+        f.write(get_article_text(link_texts[_]))
+    print(get_article_text(link_texts[_]))
