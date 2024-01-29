@@ -88,7 +88,7 @@ for (tag, url) in URL.items():
     print("#" + tag[4:] + "：共有 " + str(len(link_texts)) + " 篇文章")
     for _ in range(len(link_texts)):
         article_text = get_article_text(link_texts[_])
-        filename = "#" + tag[4:] + ".txt"
+        filename = "/articles/#" + tag[4:] + ".txt"
         with open(filename, "a", encoding='utf-8') as f:
             f.write(article_text)
         print("第 " + str(_) + " 篇文章\n" + article_text)
