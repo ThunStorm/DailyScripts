@@ -1,17 +1,30 @@
 import jieba
 import wordcloud
 import matplotlib.pyplot as plt
-word_list = jieba.lcut(words)   # 结巴词库切分词
-word_list = [word for word in word_list if len(word.strip())>1]#清洗一个字的词
-word_clean=" ".join(word_list)
+
+# 读取文件
+words = ""
+articles = ["#上海", "#现实和理想", "#个人成长", "#人情世故", "#山宝在等你", "#成年人"]
+for article in articles:
+    filename = r'articles/' + article + '.txt'
+    with open(filename, "r", encoding='utf-8') as f:
+        words = words + f.read()
+
+# word_list = jieba.del_word("正文")  # 结巴词库切分词
+# word_list = jieba.del_word("自己")  # 结巴词库切分词
+word_list = jieba.lcut(words)  # 结巴词库切分词
+word_list = [word for word in word_list if len(word.strip()) > 1]  # 清洗一个字的词
+word_clean = " ".join(word_list)
 import imageio
-mask=imageio.imread(r'kobe.jpg')
-wc = wordcloud.WordCloud(font_path = "simkai.ttf",#指定字体类型
-                        background_color = "white",#指定背景颜色
-                        max_words = 200,  # 词云显示的最大词数
-                        max_font_size = 255,#指定最大字号
-                        mask = mask) #指定模板
-wc = wc.generate(word_clean)##生成词云
+
+# mask = imageio.imread(r'kobe.jpg')
+wc = wordcloud.WordCloud(font_path="simkai.ttf",  # 指定字体类型
+                         background_color="white",  # 指定背景颜色
+                         max_words=500,  # 词云显示的最大词数
+                         max_font_size=500,
+                         width=900, height=600)  # 指定最大字号
+                         # , mask=mask)  # 指定模板
+wc = wc.generate(word_clean)  ##生成词云
 plt.imshow(wc)
 plt.axis("off")
 plt.show()
